@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Órganos de Fijación Parasitarios</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f0fdf4; /* Fondo verde muy suave */
+        }
+        .parasite-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .parasite-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+    </style>
+</head>
+<body class="p-4 md:p-8 text-gray-800">
+
+    <div class="max-w-5xl mx-auto">
+        <header class="text-center mb-10">
+            <h1 class="text-3xl md:text-4xl font-extrabold text-emerald-800 mb-2">Órganos de Fijación en Parásitos</h1>
+            <p class="text-lg text-emerald-600">Visualización anatómica para clasificación taxonómica</p>
+        </header>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+
+            <!-- CÉSTODOS -->
+            <div class="parasite-card bg-white rounded-2xl p-6 border-t-8 border-purple-500 shadow-lg">
+                <h2 class="text-2xl font-bold text-purple-700 mb-4 flex items-center">
+                    <span class="bg-purple-100 text-purple-800 text-sm py-1 px-3 rounded-full mr-3">1</span>
+                    Céstodos
+                </h2>
+                <div class="bg-purple-50 rounded-xl p-4 mb-4 flex justify-center items-center h-48 border border-purple-100">
+                    <!-- SVG Escólex de Céstodo -->
+                    <svg viewBox="0 0 200 200" class="w-full h-full drop-shadow-md">
+                        <!-- Cuello -->
+                        <path d="M 85 200 L 85 130 C 85 100 115 100 115 130 L 115 200 Z" fill="#e9d5ff" stroke="#a855f7" stroke-width="3"/>
+                        <!-- Escólex (Cabeza) -->
+                        <circle cx="100" cy="80" r="35" fill="#e9d5ff" stroke="#a855f7" stroke-width="3"/>
+                        <!-- Ventosas -->
+                        <circle cx="80" cy="80" r="12" fill="#d8b4fe" stroke="#9333ea" stroke-width="2"/>
+                        <circle cx="80" cy="80" r="5" fill="#7e22ce"/>
+                        <circle cx="120" cy="80" r="12" fill="#d8b4fe" stroke="#9333ea" stroke-width="2"/>
+                        <circle cx="120" cy="80" r="5" fill="#7e22ce"/>
+                        <!-- Rostelo (Protuberancia) -->
+                        <path d="M 85 50 C 85 30 115 30 115 50 Z" fill="#d8b4fe" stroke="#a855f7" stroke-width="2"/>
+                        <!-- Corona de ganchos (Doble) -->
+                        <path d="M 80 40 L 85 25 L 90 40 L 95 25 L 100 40 L 105 25 L 110 40 L 115 25 L 120 40" fill="none" stroke="#581c87" stroke-width="2" stroke-linejoin="round"/>
+                        <path d="M 82 35 L 87 20 L 92 35 L 97 20 L 102 35 L 107 20 L 112 35 L 117 20" fill="none" stroke="#581c87" stroke-width="2" stroke-linejoin="round"/>
+                        <!-- Botríos (ejemplo secundario a la derecha) -->
+                        <path d="M 160 100 C 140 100 140 160 160 160 C 180 160 180 100 160 100 Z" fill="#e9d5ff" stroke="#a855f7" stroke-width="2"/>
+                        <path d="M 160 110 L 160 150" stroke="#7e22ce" stroke-width="3" stroke-linecap="round"/>
+                        <text x="160" y="180" font-size="10" text-anchor="middle" fill="#6b21a8">Botrío</text>
+                    </svg>
+                </div>
+                <ul class="space-y-2 text-gray-700">
+                    <li class="flex items-start"><span class="text-purple-500 mr-2 font-bold">✓</span> <b>Ventosas:</b> 4 copas musculares de succión.</li>
+                    <li class="flex items-start"><span class="text-purple-500 mr-2 font-bold">✓</span> <b>Corona de ganchos:</b> En el rostelo, como arpones de anclaje.</li>
+                    <li class="flex items-start"><span class="text-purple-500 mr-2 font-bold">✓</span> <b>Botríos:</b> Surcos longitudinales musculares (en algunos grupos).</li>
+                </ul>
+            </div>
+
+            <!-- TREMÁTODOS -->
+            <div class="parasite-card bg-white rounded-2xl p-6 border-t-8 border-green-500 shadow-lg">
+                <h2 class="text-2xl font-bold text-green-700 mb-4 flex items-center">
+                    <span class="bg-green-100 text-green-800 text-sm py-1 px-3 rounded-full mr-3">2</span>
+                    Tremátodos
+                </h2>
+                <div class="bg-green-50 rounded-xl p-4 mb-4 flex justify-center items-center h-48 border border-green-100">
+                    <!-- SVG Tremátodo -->
+                    <svg viewBox="0 0 200 200" class="w-full h-full drop-shadow-md">
+                        <!-- Cuerpo forma de hoja -->
+                        <ellipse cx="100" cy="110" rx="50" ry="80" fill="#bbf7d0" stroke="#22c55e" stroke-width="3"/>
+                        <!-- Cono anterior -->
+                        <path d="M 80 45 C 80 10 120 10 120 45 Z" fill="#bbf7d0" stroke="#22c55e" stroke-width="3"/>
+                        <!-- Ventosa Oral -->
+                        <circle cx="100" cy="30" r="12" fill="#86efac" stroke="#16a34a" stroke-width="3"/>
+                        <circle cx="100" cy="30" r="5" fill="#15803d"/>
+                        <text x="50" y="35" font-size="12" font-weight="bold" fill="#15803d">Oral</text>
+                        <path d="M 75 30 L 85 30" stroke="#15803d" stroke-width="1" stroke-dasharray="2,2"/>
+                        <!-- Ventosa Ventral (Acetábulo) -->
+                        <circle cx="100" cy="85" r="18" fill="#86efac" stroke="#16a34a" stroke-width="3"/>
+                        <circle cx="100" cy="85" r="8" fill="#15803d"/>
+                        <text x="155" y="90" font-size="12" font-weight="bold" fill="#15803d">Ventral</text>
+                        <path d="M 120 85 L 130 85" stroke="#15803d" stroke-width="1" stroke-dasharray="2,2"/>
+                        <!-- Intestinos ciegos (decorativo) -->
+                        <path d="M 100 45 L 100 55 L 80 90 L 80 150" fill="none" stroke="#4ade80" stroke-width="4" stroke-linecap="round"/>
+                        <path d="M 100 55 L 120 90 L 120 150" fill="none" stroke="#4ade80" stroke-width="4" stroke-linecap="round"/>
+                    </svg>
+                </div>
+                <ul class="space-y-2 text-gray-700">
+                    <li class="flex items-start"><span class="text-green-500 mr-2 font-bold">✓</span> <b>Ventosa Oral:</b> Rodea la boca, usada para sujeción y alimentación.</li>
+                    <li class="flex items-start"><span class="text-green-500 mr-2 font-bold">✓</span> <b>Ventosa Ventral (Acetábulo):</b> Más grande, ubicada en el vientre, puramente mecánica para aferrarse.</li>
+                </ul>
+            </div>
+
+            <!-- NEMÁTODOS -->
+            <div class="parasite-card bg-white rounded-2xl p-6 border-t-8 border-red-500 shadow-lg">
+                <h2 class="text-2xl font-bold text-red-700 mb-4 flex items-center">
+                    <span class="bg-red-100 text-red-800 text-sm py-1 px-3 rounded-full mr-3">3</span>
+                    Nemátodos
+                </h2>
+                <div class="bg-red-50 rounded-xl p-4 mb-4 flex justify-center items-center h-48 border border-red-100">
+                    <!-- SVG Nemátodos (Varios tipos) -->
+                    <svg viewBox="0 0 300 200" class="w-full h-full drop-shadow-md">
+                        
+                        <!-- 1. Labios (ej. Ascaris) -->
+                        <g transform="translate(40, 60)">
+                            <path d="M -20 100 L -20 20 C -20 -10 20 -10 20 20 L 20 100 Z" fill="#fecaca" stroke="#ef4444" stroke-width="3"/>
+                            <!-- 3 labios apicales -->
+                            <path d="M -15 20 Q 0 -5 15 20 Z" fill="#fca5a5" stroke="#dc2626" stroke-width="2"/>
+                            <path d="M -15 20 Q -25 35 0 30 Z" fill="#fca5a5" stroke="#dc2626" stroke-width="2"/>
+                            <path d="M 15 20 Q 25 35 0 30 Z" fill="#fca5a5" stroke="#dc2626" stroke-width="2"/>
+                            <text x="0" y="120" font-size="14" font-weight="bold" text-anchor="middle" fill="#b91c1c">Labios</text>
+                        </g>
+
+                        <!-- 2. Dientes/Placas (ej. Ancylostoma) -->
+                        <g transform="translate(150, 60)">
+                            <path d="M -25 100 L -25 30 C -25 0 -35 -10 -15 -20 L 15 -20 C 35 -10 25 0 25 30 L 25 100 Z" fill="#fecaca" stroke="#ef4444" stroke-width="3"/>
+                            <!-- Cápsula bucal hueca -->
+                            <ellipse cx="0" cy="0" rx="18" ry="10" fill="#991b1b" stroke="#7f1d1d" stroke-width="2"/>
+                            <!-- Dientes/Placas cortantes -->
+                            <path d="M -15 5 L -5 -15 L -5 5 Z" fill="#ffffff" stroke="#991b1b" stroke-width="1"/>
+                            <path d="M 15 5 L 5 -15 L 5 5 Z" fill="#ffffff" stroke="#991b1b" stroke-width="1"/>
+                            <text x="0" y="120" font-size="14" font-weight="bold" text-anchor="middle" fill="#b91c1c">Dientes / Placas</text>
+                        </g>
+
+                        <!-- 3. Extremo floriforme -->
+                        <g transform="translate(260, 60)">
+                            <path d="M -15 100 L -15 20 L 15 20 L 15 100 Z" fill="#fecaca" stroke="#ef4444" stroke-width="3"/>
+                            <!-- Floriforme -->
+                            <path d="M -15 20 Q -30 0 0 -5 Q 30 0 15 20 Z" fill="#fca5a5" stroke="#dc2626" stroke-width="2"/>
+                            <path d="M -20 10 Q 0 -15 20 10 Z" fill="#fca5a5" stroke="#dc2626" stroke-width="2"/>
+                            <text x="0" y="120" font-size="14" font-weight="bold" text-anchor="middle" fill="#b91c1c">Floriforme</text>
+                        </g>
+                    </svg>
+                </div>
+                <ul class="space-y-2 text-gray-700">
+                    <li class="flex items-start"><span class="text-red-500 mr-2 font-bold">✓</span> <b>Labios:</b> Músculos alrededor de la boca (ej. 3 labios en <i>Ascaris</i>).</li>
+                    <li class="flex items-start"><span class="text-red-500 mr-2 font-bold">✓</span> <b>Dientes/Placas:</b> Estructuras cortantes quitinosas en la cápsula bucal que muerden la mucosa.</li>
+                    <li class="flex items-start"><span class="text-red-500 mr-2 font-bold">✓</span> <b>Extremo floriforme:</b> Borde anterior con forma de roseta dentada.</li>
+                </ul>
+            </div>
+
+            <!-- ACANTOCÉFALOS -->
+            <div class="parasite-card bg-white rounded-2xl p-6 border-t-8 border-orange-500 shadow-lg">
+                <h2 class="text-2xl font-bold text-orange-700 mb-4 flex items-center">
+                    <span class="bg-orange-100 text-orange-800 text-sm py-1 px-3 rounded-full mr-3">4</span>
+                    Acantocéfalos
+                </h2>
+                <div class="bg-orange-50 rounded-xl p-4 mb-4 flex justify-center items-center h-48 border border-orange-100">
+                    <!-- SVG Acantocéfalo -->
+                    <svg viewBox="0 0 200 200" class="w-full h-full drop-shadow-md">
+                        <!-- Cuerpo -->
+                        <path d="M 70 200 L 70 110 C 70 90 130 90 130 110 L 130 200 Z" fill="#fed7aa" stroke="#f97316" stroke-width="3"/>
+                        
+                        <!-- Probóscide (Trompa) -->
+                        <path d="M 85 95 L 85 20 C 85 10 115 10 115 20 L 115 95 Z" fill="#ffedd5" stroke="#ea580c" stroke-width="3"/>
+                        
+                        <!-- Ganchos en la probóscide (recurvados hacia atrás) -->
+                        <g stroke="#9a3412" stroke-width="2" fill="none" stroke-linecap="round">
+                            <!-- Fila 1 -->
+                            <path d="M 85 25 Q 75 25 75 35"/><path d="M 115 25 Q 125 25 125 35"/>
+                            <path d="M 100 20 Q 100 25 95 30"/>
+                            <!-- Fila 2 -->
+                            <path d="M 85 45 Q 75 45 75 55"/><path d="M 115 45 Q 125 45 125 55"/>
+                            <path d="M 100 40 Q 100 45 95 50"/>
+                            <!-- Fila 3 -->
+                            <path d="M 85 65 Q 75 65 75 75"/><path d="M 115 65 Q 125 65 125 75"/>
+                            <path d="M 100 60 Q 100 65 95 70"/>
+                             <!-- Fila 4 -->
+                            <path d="M 85 85 Q 75 85 75 95"/><path d="M 115 85 Q 125 85 125 95"/>
+                            <path d="M 100 80 Q 100 85 95 90"/>
+                        </g>
+                        
+                        <!-- Pared intestinal del hospedador (Contexto) -->
+                        <path d="M 40 100 Q 100 120 160 100 L 160 80 L 40 80 Z" fill="#fecaca" opacity="0.6"/>
+                        <text x="165" y="95" font-size="10" font-weight="bold" fill="#b91c1c">Mucosa Intestinal</text>
+                    </svg>
+                </div>
+                <ul class="space-y-2 text-gray-700">
+                    <li class="flex items-start"><span class="text-orange-500 mr-2 font-bold">✓</span> <b>Probóscide:</b> Estructura retráctil en el extremo anterior.</li>
+                    <li class="flex items-start"><span class="text-orange-500 mr-2 font-bold">✓</span> <b>Ganchos recurvados:</b> Cubren la probóscide. El parásito la entierra en la pared intestinal y se ancla profundamente.</li>
+                </ul>
+            </div>
+
+        </div>
+    </div>
+
+</body>
+</html>
