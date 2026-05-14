@@ -1,0 +1,481 @@
+import React, { useState } from 'react';
+import { Activity, ShieldAlert, Syringe, TestTube, Info, ArrowRight, ActivitySquare, PlusCircle } from 'lucide-react';
+
+export default function App() {
+  const [activeTab, setActiveTab] = useState('tasas');
+  
+  return (
+    <div className="min-h-screen bg-slate-50 text-slate-800 font-sans p-4 md:p-8">
+      <div className="max-w-5xl mx-auto bg-white rounded-2xl shadow-xl overflow-hidden border border-slate-100">
+        
+        {/* Header */}
+        <div className="bg-teal-600 p-6 text-white">
+          <h1 className="text-3xl font-bold flex items-center gap-3">
+            <ActivitySquare className="w-8 h-8" />
+            Visualizador Interactivo de Virología
+          </h1>
+          <p className="mt-2 text-teal-100">
+            Explora las fórmulas de tu taller paso a paso de forma gráfica.
+          </p>
+        </div>
+
+        {/* Navigation */}
+        <div className="flex border-b border-slate-200 bg-slate-50 overflow-x-auto">
+          <TabButton 
+            active={activeTab === 'tasas'} 
+            onClick={() => setActiveTab('tasas')} 
+            icon={<Activity className="w-5 h-5" />}
+            label="1. Prevalencia e Incidencia" 
+          />
+          <TabButton 
+            active={activeTab === 'or_rr'} 
+            onClick={() => setActiveTab('or_rr')} 
+            icon={<ShieldAlert className="w-5 h-5" />}
+            label="2. Riesgo (OR y RR)" 
+          />
+          <TabButton 
+            active={activeTab === 'pruebas'} 
+            onClick={() => setActiveTab('pruebas')} 
+            icon={<TestTube className="w-5 h-5" />}
+            label="3. Pruebas Diagnósticas" 
+          />
+        </div>
+
+        {/* Content Area */}
+        <div className="p-6">
+          {activeTab === 'tasas' && <TasasSection />}
+          {activeTab === 'or_rr' && <RiesgoSection />}
+          {activeTab === 'pruebas' && <PruebasSection />}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+/* =========================================
+   COMPONENTS & SECTIONS
+   ========================================= */
+
+function TabButton({ active, onClick, icon, label }) {
+  return (
+    <button
+      onClick={onClick}
+      className={`flex items-center gap-2 px-6 py-4 font-semibold transition-colors whitespace-nowrap
+        ${active 
+          ? 'text-teal-700 border-b-4 border-teal-600 bg-teal-50/50' 
+          : 'text-slate-500 hover:text-slate-700 hover:bg-slate-100'}`}
+    >
+      {icon}
+      {label}
+    </button>
+  );
+}
+
+/* --- SECTION 1: PREVALENCIA E INCIDENCIA --- */
+function TasasSection() {
+  const [ejercicio, setEjercicio] = useState(0);
+
+  const ejerciciosPrevalencia = [
+    { titulo: 'Gatos y FeLV', enfermos: 30, total: 150, animal: 'Gatos' },
+    { titulo: 'Vacas y Mastitis', enfermos: 20, total: 200, animal: 'Vacas' },
+    { titulo: 'Perros y Parvovirus', enfermos: 15, total: 60, animal: 'Perros' },
+    { titulo: 'Aves e Influenza', enfermos: 50, total: 500, animal: 'Aves' },
+    { titulo: 'Gatos y PIF', enfermos: 8, total: 80, animal: 'Gatos' },
+  ];
+
+  const curr = ejerciciosPrevalencia[ejercicio];
+  const porcentaje = ((curr.enfermos / curr.total) * 100).toFixed(1);
+
+  return (
+    <div className="space-y-8 animate-in fade-in duration-500">
+      
+      {/* Visual Analogy */}
+      <div className="bg-blue-50 rounded-xl p-6 border border-blue-100 flex flex-col md:flex-row items-center gap-8">
+        <div className="flex-1">
+          <h3 className="text-xl font-bold text-blue-900 mb-2 flex items-center gap-2">
+            <Info className="w-5 h-5 text-blue-600"/> La Analogía de la Bañera
+          </h3>
+          <p className="text-blue-800 mb-4">
+            Imagina una bañera. El agua que cae del grifo son los <strong className="text-teal-600">casos nuevos (Incidencia)</strong>, 
+            mientras que el agua que ya está estancada en la bañera representa todos los <strong className="text-rose-600">casos existentes (Prevalencia)</strong>.
+          </p>
+          <div className="flex gap-4">
+            <div className="bg-white p-3 rounded shadow-sm text-sm border-l-4 border-teal-500 flex-1">
+              <strong>Incidencia:</strong> Casos Nuevos / Sanos
+            </div>
+            <div className="bg-white p-3 rounded shadow-sm text-sm border-l-4 border-rose-500 flex-1">
+              <strong>Prevalencia:</strong> Casos Totales / Población
+            </div>
+          </div>
+        </div>
+        
+        {/* Simple Bathtub SVG graphic */}
+        <div className="w-48 h-48 relative">
+           <svg viewBox="0 0 100 100" className="w-full h-full">
+              {/* Faucet */}
+              <path d="M 30 10 L 50 10 L 50 30" fill="none" stroke="#475569" strokeWidth="6" strokeLinecap="round" strokeLinejoin="round"/>
+              <circle cx="50" cy="30" r="3" fill="#475569" />
+              {/* Drops (Incidence) */}
+              <circle cx="50" cy="45" r="2" fill="#0d9488" className="animate-bounce"/>
+              <circle cx="50" cy="55" r="2" fill="#0d9488" className="animate-bounce" style={{animationDelay: '0.2s'}}/>
+              <text x="56" y="50" fontSize="6" fill="#0d9488" fontWeight="bold">INCIDENCIA</text>
+              {/* Tub */}
+              <path d="M 20 40 L 20 80 Q 20 90 30 90 L 70 90 Q 80 90 80 80 L 80 40" fill="none" stroke="#94a3b8" strokeWidth="4" />
+              {/* Water (Prevalence) */}
+              <path d="M 22 70 L 78 70 L 78 80 Q 78 88 70 88 L 30 88 Q 22 88 22 80 Z" fill="#f43f5e" opacity="0.8"/>
+              <text x="32" y="80" fontSize="6" fill="white" fontWeight="bold">PREVALENCIA</text>
+           </svg>
+        </div>
+      </div>
+
+      {/* Interactive Visualizer */}
+      <h3 className="text-xl font-bold text-slate-800 border-b pb-2">Simulador de Prevalencia (Ejercicios del Taller)</h3>
+      
+      <div className="flex flex-wrap gap-2">
+        {ejerciciosPrevalencia.map((ej, idx) => (
+          <button
+            key={idx}
+            onClick={() => setEjercicio(idx)}
+            className={`px-4 py-2 rounded-full text-sm font-medium transition-colors ${
+              ejercicio === idx ? 'bg-rose-600 text-white shadow-md' : 'bg-slate-200 text-slate-700 hover:bg-slate-300'
+            }`}
+          >
+            Ej. {idx + 1}: {ej.titulo}
+          </button>
+        ))}
+      </div>
+
+      <div className="bg-white border rounded-xl p-6 shadow-sm flex flex-col md:flex-row gap-8 items-center">
+        
+        {/* Math Breakdown */}
+        <div className="flex-1 space-y-4">
+          <div className="text-lg">
+            En el ejercicio <strong className="text-rose-600">{ejercicio + 1}</strong>, tenemos:
+          </div>
+          <div className="bg-slate-50 p-4 rounded-lg border border-slate-200 font-mono text-center">
+             <div className="border-b-2 border-slate-400 pb-2 mb-2">
+               <span className="text-rose-600 font-bold text-2xl">{curr.enfermos}</span> <span className="text-slate-500">enfermos</span>
+             </div>
+             <div>
+               <span className="text-slate-700 font-bold text-2xl">{curr.total}</span> <span className="text-slate-500">población total</span>
+             </div>
+          </div>
+          <div className="text-center text-3xl font-bold text-slate-800 flex justify-center items-center gap-4">
+             <ArrowRight className="text-slate-400" />
+             {porcentaje}% 
+             <span className="text-sm font-normal text-slate-500 bg-slate-200 px-2 py-1 rounded-full">Prevalencia</span>
+          </div>
+        </div>
+
+        {/* Graphical Representation */}
+        <div className="flex-1 w-full">
+           <div className="mb-2 flex justify-between text-sm font-semibold text-slate-600">
+             <span>Sanos ({curr.total - curr.enfermos})</span>
+             <span className="text-rose-600">Enfermos ({curr.enfermos})</span>
+           </div>
+           {/* Visual Bar */}
+           <div className="h-16 w-full bg-slate-200 rounded-xl overflow-hidden flex relative">
+              <div 
+                className="h-full bg-teal-400 transition-all duration-1000 ease-out flex items-center justify-center text-teal-900 font-bold"
+                style={{ width: `${100 - porcentaje}%` }}
+              >
+              </div>
+              <div 
+                className="h-full bg-rose-500 transition-all duration-1000 ease-out flex items-center justify-center text-white font-bold pattern-diagonal-lines pattern-rose-600 pattern-bg-rose-500 pattern-size-4 pattern-opacity-40"
+                style={{ width: `${porcentaje}%` }}
+              >
+                {porcentaje}%
+              </div>
+           </div>
+           <p className="text-center text-sm text-slate-500 mt-4">
+             De cada 100 {curr.animal.toLowerCase()}, {Math.round(porcentaje)} están enfermos.
+           </p>
+        </div>
+      </div>
+
+    </div>
+  );
+}
+
+/* --- SECTION 2: OR y RR --- */
+function RiesgoSection() {
+  const [ejercicio, setEjercicio] = useState(0);
+
+  const ejerciciosOR = [
+    { titulo: 'Vacuna vs Parvovirus', exp_enf: 10, exp_sano: 40, noexp_enf: 30, noexp_sano: 20 },
+    { titulo: 'Exposición FeLV', exp_enf: 25, exp_sano: 25, noexp_enf: 10, noexp_sano: 40 },
+    { titulo: 'Contacto Influenza', exp_enf: 15, exp_sano: 25, noexp_enf: 20, noexp_sano: 30 },
+    { titulo: 'Dieta vs Salmonella', exp_enf: 20, exp_sano: 30, noexp_enf: 10, noexp_sano: 40 },
+    { titulo: 'Estrés y PIF', exp_enf: 18, exp_sano: 22, noexp_enf: 12, noexp_sano: 48 },
+  ];
+
+  const d = ejerciciosOR[ejercicio];
+  const a = d.exp_enf;
+  const b = d.exp_sano;
+  const c = d.noexp_enf;
+  const d_val = d.noexp_sano;
+
+  const or_val = ((a * d_val) / (b * c)).toFixed(2);
+  const rr_val = ((a / (a + b)) / (c / (c + d_val))).toFixed(2);
+
+  return (
+    <div className="space-y-8 animate-in fade-in duration-500">
+      <div className="bg-amber-50 rounded-xl p-6 border border-amber-200">
+        <h3 className="text-xl font-bold text-amber-900 mb-2 flex items-center gap-2">
+          <Info className="w-5 h-5 text-amber-600"/> La Tabla de Contingencia (2x2)
+        </h3>
+        <p className="text-amber-800">
+          Esta tabla cruza dos cosas: <b>¿Estuvo expuesto al factor?</b> (ej. Vacuna o Estrés) vs <b>¿Se enfermó?</b>. 
+          De aquí salen las famosas letras <strong>a, b, c, d</strong>.
+        </p>
+      </div>
+
+      <div className="flex flex-wrap gap-2">
+        {ejerciciosOR.map((ej, idx) => (
+          <button
+            key={idx}
+            onClick={() => setEjercicio(idx)}
+            className={`px-4 py-2 rounded-full text-sm font-medium transition-colors ${
+              ejercicio === idx ? 'bg-amber-600 text-white shadow-md' : 'bg-slate-200 text-slate-700 hover:bg-slate-300'
+            }`}
+          >
+            Ej. {idx + 1}: {ej.titulo}
+          </button>
+        ))}
+      </div>
+
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+        
+        {/* Visual 2x2 Table */}
+        <div className="bg-white p-6 rounded-xl border shadow-sm">
+          <h4 className="text-center font-bold text-slate-700 mb-4">{d.titulo}</h4>
+          <div className="grid grid-cols-3 text-center border-2 border-slate-800 rounded-lg overflow-hidden">
+            <div className="bg-slate-200 p-3 font-bold border-b border-r border-slate-800"></div>
+            <div className="bg-rose-100 p-3 font-bold text-rose-800 border-b border-r border-slate-800 flex flex-col items-center justify-center">Enfermos<br/><span className="text-xs font-normal">(Casos)</span></div>
+            <div className="bg-teal-100 p-3 font-bold text-teal-800 border-b border-slate-800 flex flex-col items-center justify-center">Sanos<br/><span className="text-xs font-normal">(Controles)</span></div>
+            
+            <div className="bg-amber-100 p-3 font-bold text-amber-900 border-b border-r border-slate-800 flex items-center justify-center">Expuestos</div>
+            <div className="p-4 border-b border-r border-slate-800 text-2xl font-mono text-rose-600 relative group">
+              {a}
+              <span className="absolute top-1 left-1 text-xs font-bold text-slate-400">a</span>
+            </div>
+            <div className="p-4 border-b border-slate-800 text-2xl font-mono text-teal-600 relative">
+              {b}
+              <span className="absolute top-1 left-1 text-xs font-bold text-slate-400">b</span>
+            </div>
+
+            <div className="bg-amber-100 p-3 font-bold text-amber-900 border-r border-slate-800 flex items-center justify-center leading-tight">No<br/>Expuestos</div>
+            <div className="p-4 border-r border-slate-800 text-2xl font-mono text-rose-600 relative">
+              {c}
+              <span className="absolute top-1 left-1 text-xs font-bold text-slate-400">c</span>
+            </div>
+            <div className="p-4 text-2xl font-mono text-teal-600 relative">
+              {d_val}
+              <span className="absolute top-1 left-1 text-xs font-bold text-slate-400">d</span>
+            </div>
+          </div>
+        </div>
+
+        {/* Calculations Map */}
+        <div className="space-y-6">
+          {/* OR */}
+          <div className="bg-slate-50 p-5 rounded-xl border border-slate-200">
+            <h5 className="font-bold text-slate-700 flex items-center gap-2 border-b pb-2 mb-3">
+              Odds Ratio (OR) <span className="text-sm font-normal bg-slate-200 px-2 py-0.5 rounded text-slate-600">Multiplicación en X</span>
+            </h5>
+            <div className="flex items-center justify-center gap-4 font-mono text-lg">
+              <div className="text-center">
+                <div className="border-b-2 border-slate-400 pb-1">a × d ({a} × {d_val})</div>
+                <div className="pt-1">b × c ({b} × {c})</div>
+              </div>
+              <div>=</div>
+              <div className="text-center">
+                <div className="border-b-2 border-slate-400 pb-1">{a * d_val}</div>
+                <div className="pt-1">{b * c}</div>
+              </div>
+              <ArrowRight className="text-slate-400"/>
+              <div className="text-3xl font-bold text-amber-600">{or_val}</div>
+            </div>
+          </div>
+
+          {/* RR */}
+          <div className="bg-slate-50 p-5 rounded-xl border border-slate-200">
+            <h5 className="font-bold text-slate-700 flex items-center gap-2 border-b pb-2 mb-3">
+              Riesgo Relativo (RR) <span className="text-sm font-normal bg-slate-200 px-2 py-0.5 rounded text-slate-600">Riesgo Exp vs No Exp</span>
+            </h5>
+            <div className="flex items-center justify-center gap-2 font-mono text-sm md:text-base">
+              <div className="text-center text-amber-700">
+                <div className="border-b-2 border-amber-300 pb-1">a / (a+b)</div>
+                <div className="pt-1">c / (c+d)</div>
+              </div>
+              <ArrowRight className="w-4 h-4 text-slate-400"/>
+              <div className="text-center">
+                <div className="border-b-2 border-slate-400 pb-1">{a} / {a+b}</div>
+                <div className="pt-1">{c} / {c+d_val}</div>
+              </div>
+              <ArrowRight className="w-4 h-4 text-slate-400"/>
+              <div className="text-center">
+                <div className="border-b-2 border-slate-400 pb-1">{(a/(a+b)).toFixed(3)}</div>
+                <div className="pt-1">{(c/(c+d_val)).toFixed(3)}</div>
+              </div>
+              <ArrowRight className="w-4 h-4 text-slate-400"/>
+              <div className="text-3xl font-bold text-indigo-600 ml-2">{rr_val}</div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  );
+}
+
+/* --- SECTION 3: PRUEBAS DIAGNÓSTICAS --- */
+function PruebasSection() {
+  const [ejercicio, setEjercicio] = useState(0);
+
+  const ejerciciosPruebas = [
+    { vp: 40, fn: 10, fp: 20, vn: 80 },
+    { vp: 30, fn: 20, fp: 40, vn: 60 },
+    { vp: 50, fn: 5,  fp: 10, vn: 90 },
+    { vp: 25, fn: 25, fp: 50, vn: 50 },
+    { vp: 45, fn: 15, fp: 30, vn: 70 },
+  ];
+
+  const d = ejerciciosPruebas[ejercicio];
+  const sens = (d.vp / (d.vp + d.fn)).toFixed(2);
+  const esp = (d.vn / (d.vn + d.fp)).toFixed(2);
+  const vpp = (d.vp / (d.vp + d.fp)).toFixed(2);
+  const vpn = (d.vn / (d.vn + d.fn)).toFixed(2);
+
+  return (
+    <div className="space-y-8 animate-in fade-in duration-500">
+      
+      <div className="bg-indigo-50 rounded-xl p-6 border border-indigo-200">
+        <h3 className="text-xl font-bold text-indigo-900 mb-2 flex items-center gap-2">
+          <Info className="w-5 h-5 text-indigo-600"/> El Radar de Pruebas
+        </h3>
+        <p className="text-indigo-800">
+          ¿Qué tan buena es tu prueba de laboratorio? <br/>
+          <b>Sensibilidad (Vertical):</b> De todos los enfermos reales, ¿cuántos encontró la prueba? (VP / Total Enfermos).<br/>
+          <b>Especificidad (Vertical):</b> De todos los sanos reales, ¿a cuántos dejó en paz sin asustarlos? (VN / Total Sanos).
+        </p>
+      </div>
+
+      <div className="flex flex-wrap gap-2">
+        {ejerciciosPruebas.map((_, idx) => (
+          <button
+            key={idx}
+            onClick={() => setEjercicio(idx)}
+            className={`px-4 py-2 rounded-full text-sm font-medium transition-colors ${
+              ejercicio === idx ? 'bg-indigo-600 text-white shadow-md' : 'bg-slate-200 text-slate-700 hover:bg-slate-300'
+            }`}
+          >
+            Datos Ejercicio {idx + 1}
+          </button>
+        ))}
+      </div>
+
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
+        
+        {/* Matriz de Confusión Visual */}
+        <div className="bg-white p-6 rounded-xl border shadow-sm relative">
+           {/* Visual Headers */}
+           <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-slate-800 text-white px-4 py-1 rounded-full text-xs font-bold uppercase tracking-widest">
+             Realidad del Animal
+           </div>
+           
+           <div className="mt-4 grid grid-cols-[auto_1fr_1fr] gap-2">
+              <div></div>
+              <div className="text-center font-bold text-rose-600 bg-rose-50 rounded py-2">Enfermo (Real)</div>
+              <div className="text-center font-bold text-teal-600 bg-teal-50 rounded py-2">Sano (Real)</div>
+              
+              <div className="flex items-center justify-center font-bold text-indigo-800 bg-indigo-50 rounded px-2 text-sm -rotate-180" style={{writingMode: 'vertical-rl'}}>
+                Resultado Test
+              </div>
+              
+              <div className="grid grid-rows-2 gap-2">
+                 <div className="bg-rose-100 border-2 border-rose-300 rounded-lg p-4 flex flex-col items-center justify-center relative group">
+                    <span className="text-xs uppercase font-bold text-rose-500 mb-1">Verdadero Positivo</span>
+                    <span className="text-3xl font-mono font-bold text-rose-700">{d.vp}</span>
+                    <div className="absolute inset-0 border-4 border-transparent group-hover:border-indigo-400 rounded-lg transition-colors pointer-events-none" />
+                 </div>
+                 <div className="bg-rose-50 border-2 border-rose-200 rounded-lg p-4 flex flex-col items-center justify-center opacity-70">
+                    <span className="text-xs uppercase font-bold text-rose-400 mb-1">Falso Negativo</span>
+                    <span className="text-3xl font-mono font-bold text-rose-500">{d.fn}</span>
+                 </div>
+              </div>
+
+              <div className="grid grid-rows-2 gap-2">
+                 <div className="bg-teal-50 border-2 border-teal-200 rounded-lg p-4 flex flex-col items-center justify-center opacity-70">
+                    <span className="text-xs uppercase font-bold text-teal-400 mb-1">Falso Positivo</span>
+                    <span className="text-3xl font-mono font-bold text-teal-500">{d.fp}</span>
+                 </div>
+                 <div className="bg-teal-100 border-2 border-teal-300 rounded-lg p-4 flex flex-col items-center justify-center relative group">
+                    <span className="text-xs uppercase font-bold text-teal-600 mb-1">Verdadero Negativo</span>
+                    <span className="text-3xl font-mono font-bold text-teal-800">{d.vn}</span>
+                    <div className="absolute inset-0 border-4 border-transparent group-hover:border-indigo-400 rounded-lg transition-colors pointer-events-none" />
+                 </div>
+              </div>
+           </div>
+        </div>
+
+        {/* Dashboard de Fórmulas */}
+        <div className="grid grid-cols-2 gap-4">
+           {/* Sensibilidad */}
+           <MetricCard 
+             title="Sensibilidad" 
+             color="rose"
+             formula="VP / (VP + FN)"
+             calc={`${d.vp} / (${d.vp} + ${d.fn}) = ${d.vp}/${d.vp+d.fn}`}
+             result={sens}
+           />
+           {/* Especificidad */}
+           <MetricCard 
+             title="Especificidad" 
+             color="teal"
+             formula="VN / (VN + FP)"
+             calc={`${d.vn} / (${d.vn} + ${d.fp}) = ${d.vn}/${d.vn+d.fp}`}
+             result={esp}
+           />
+           {/* VPP */}
+           <MetricCard 
+             title="VPP" 
+             color="indigo"
+             formula="VP / (VP + FP)"
+             calc={`${d.vp} / (${d.vp} + ${d.fp}) = ${d.vp}/${d.vp+d.fp}`}
+             result={vpp}
+             subtitle="Valor Predictivo Positivo"
+           />
+           {/* VPN */}
+           <MetricCard 
+             title="VPN" 
+             color="indigo"
+             formula="VN / (VN + FN)"
+             calc={`${d.vn} / (${d.vn} + ${d.fn}) = ${d.vn}/${d.vn+d.fn}`}
+             result={vpn}
+             subtitle="Valor Predictivo Negativo"
+           />
+        </div>
+
+      </div>
+    </div>
+  );
+}
+
+function MetricCard({ title, subtitle, formula, calc, result, color }) {
+  const colorMap = {
+    rose: 'bg-rose-50 border-rose-200 text-rose-800',
+    teal: 'bg-teal-50 border-teal-200 text-teal-800',
+    indigo: 'bg-indigo-50 border-indigo-200 text-indigo-800'
+  };
+
+  return (
+    <div className={`p-4 rounded-xl border ${colorMap[color]} flex flex-col`}>
+      <h5 className="font-bold text-lg leading-tight">{title}</h5>
+      {subtitle && <span className="text-xs opacity-70 mb-2">{subtitle}</span>}
+      <div className="mt-2 text-xs font-mono font-semibold opacity-80">{formula}</div>
+      <div className="mt-1 text-sm font-mono border-t border-black/10 pt-2">{calc}</div>
+      <div className="mt-auto pt-4 text-3xl font-black text-right">{result}</div>
+    </div>
+  );
+}
